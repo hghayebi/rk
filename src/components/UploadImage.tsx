@@ -8,9 +8,10 @@ export default function UploadImage(): React.JSX.Element {
   const dispatch = useDispatch();
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files?.length === 0) return;
+    if (event.target.files?.length === 0 || event.target.files === null) return;
+    const r: FileList = event.target.files;
 
-    dispatch(addImage([...event.target.files]));
+    dispatch(addImage([...r]));
   };
   return (
     <div>
@@ -40,7 +41,6 @@ export default function UploadImage(): React.JSX.Element {
               />
             </label>
           </form>
-          {/* {image && <img width={300} src={URL.createObjectURL(image)} />} */}
         </div>
       </div>
     </div>

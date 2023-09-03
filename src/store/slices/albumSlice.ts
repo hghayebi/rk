@@ -1,15 +1,24 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice, nanoid } from "@reduxjs/toolkit";
 
+export interface ImageType {
+  id: string;
+  imageFile: File;
+}
+export interface AlbumType {
+  images: Array<ImageType>;
+}
+
+const initialState: AlbumType = {
+  images: [],
+};
 export const albumSlice = createSlice({
   name: "Album",
-  initialState: {
-    images: [],
-  },
+  initialState,
   reducers: {
-    addImage(state, action) {
+    addImage(state, action: PayloadAction<Array<File>>) {
       const arr = action.payload.map((item) => ({
         id: nanoid(),
-        imageStr: item,
+        imageFile: item,
       }));
       state.images.push(...arr);
     },
