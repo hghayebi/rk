@@ -1,11 +1,12 @@
 import React from "react";
 import { BsImage } from "react-icons/bs";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { useDispatch } from "react-redux";
 import { addImage } from "../store/slices/albumSlice";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 
 export default function UploadImage(): React.JSX.Element {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const { currentImage } = useAppSelector((state) => state.album);
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files?.length === 0 || event.target.files === null) return;
@@ -13,16 +14,19 @@ export default function UploadImage(): React.JSX.Element {
 
     dispatch(addImage([...r]));
   };
-  return (
-    <div>
-      <div className="border rounded shadow flex flex-col items-center gap-20 p-10 max-w-sm mx-auto">
+
+  let content;
+
+  if (!currentImage) {
+    content = (
+      <div className=" flex flex-col items-center gap-20  min-w-fit  mx-auto">
         <div>
           <BsImage className="text-4xl text-blue-500" />
         </div>
         <div className="flex items-center justify-between w-full">
-          <IoIosArrowForward className="text-4xl" />
+          {/* <IoIosArrowForward className="text-4xl" /> */}
           <div>عکس یا ویدئو خود را بکشید اینجا</div>
-          <IoIosArrowBack className="text-4xl" />
+          {/* <IoIosArrowBack className="text-4xl" /> */}
         </div>
         <div>
           <form className="flex items-center space-x-6">
@@ -41,6 +45,24 @@ export default function UploadImage(): React.JSX.Element {
               />
             </label>
           </form>
+        </div>
+      </div>
+    );
+  } else {
+    content = (
+      <img
+        className=" h-96"
+        src={URL.createObjectURL(currentImage.imageFile)}
+      />
+    );
+  }
+  return (
+    <div>
+      <div className="border rounded shadow flex flex-col items-center gap-20  min-h-fit max-w-sm min-w-fit  mx-auto">
+        <div className="flex items-center justify-between ">
+          <IoIosArrowForward className="text-4xl" />
+          <div className="px-10 py-10">{content}</div>
+          <IoIosArrowBack className="text-4xl" />
         </div>
       </div>
     </div>

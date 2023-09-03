@@ -6,10 +6,12 @@ export interface ImageType {
 }
 export interface AlbumType {
   images: Array<ImageType>;
+  currentImage: ImageType | null;
 }
 
 const initialState: AlbumType = {
   images: [],
+  currentImage: null,
 };
 export const albumSlice = createSlice({
   name: "Album",
@@ -22,7 +24,15 @@ export const albumSlice = createSlice({
       }));
       state.images.push(...arr);
     },
+    deleteImage(state, action: PayloadAction<ImageType>) {
+      state.images = state.images.filter(
+        (image) => image.id !== action.payload.id
+      );
+    },
+    setCurrentImage(state, action: PayloadAction<ImageType>) {
+      state.currentImage = action.payload;
+    },
   },
 });
 
-export const { addImage } = albumSlice.actions;
+export const { addImage, deleteImage, setCurrentImage } = albumSlice.actions;

@@ -6,5 +6,9 @@ export default function Album() {
     if (!image) return;
     return <Image key={image.id} imageItem={image} />;
   });
-  return <div className="flex items-center gap-3 mt-10">{renderedImages}</div>;
+  return (
+    <div className="overflow-x-scroll flex items-center gap-3 mt-10">
+      {renderedImages}
+    </div>
+  );
 }
