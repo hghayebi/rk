@@ -1,14 +1,15 @@
 import React from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import UploadImage from "./UploadImage";
+// import UploadImage from "./UploadImage";
 import { setCurrentImage } from "../store";
+import { ImageDropzone } from "./ImageDropzone";
 
 export default function ShowImage(): React.JSX.Element {
   const dispatch = useAppDispatch();
   const { currentImage, images } = useAppSelector((state) => state.album);
   let currentImageIndex = -1;
-  console.log(currentImageIndex);
+  // console.log(currentImageIndex);
   images.forEach((image, index) => {
     if (image.id === currentImage?.id) {
       if (index === images.length - 1) {
@@ -30,7 +31,8 @@ export default function ShowImage(): React.JSX.Element {
   let content;
 
   if (!currentImage) {
-    content = <UploadImage />;
+    content = <ImageDropzone />;
+    // content = <UploadImage />;
   } else {
     content = (
       <img
