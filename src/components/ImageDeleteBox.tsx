@@ -4,12 +4,20 @@ import { GoX } from "react-icons/go";
 export default function ImageDeleteBox({
   children,
   handleImageDelete,
+  isCurrentImage,
 }: {
   children: React.ReactNode;
   handleImageDelete: () => void;
+  isCurrentImage: boolean;
 }): React.JSX.Element {
   return (
-    <div className="border border-dashed p-4 rounded  flex-none relative shadow m-2">
+    <div
+      className={`border  p-4 rounded  flex-none relative shadow m-2 ${
+        isCurrentImage
+          ? "border-blue-500 shadow-lg border-2 -translate-y-3"
+          : "border-dashed"
+      }`}
+    >
       {children}
       <GoX
         onClick={handleImageDelete}

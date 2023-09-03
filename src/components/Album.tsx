@@ -7,7 +7,7 @@ export default function Album() {
     return <Image key={image.id} imageItem={image} />;
   });
   return (
-    <div className="overflow-x-scroll flex items-center gap-3 mt-10">
+    <div className="overflow-x-scroll flex items-center gap-3 mt-10 py-5">
       {renderedImages}
     </div>
   );

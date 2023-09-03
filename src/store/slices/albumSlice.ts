@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice, nanoid } from "@reduxjs/toolkit";
+import getCurrentImageIndex from "../../utils/getCurrentImageIndex";
 
 export interface ImageType {
   id: string;
@@ -25,6 +26,11 @@ export const albumSlice = createSlice({
       state.images.push(...arr);
     },
     deleteImage(state, action: PayloadAction<ImageType>) {
+      if (action.payload.id === state.currentImage?.id) {
+        let index: number = getCurrentImageIndex(action.payload, state.images);
+        if (index === state.images.length - 1) index = -1;
+        state.currentImage = state.images[index + 1];
+      }
       state.images = state.images.filter(
         (image) => image.id !== action.payload.id
       );

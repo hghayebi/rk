@@ -1,6 +1,6 @@
 import React from "react";
 import { ImageType, deleteImage, setCurrentImage } from "../store";
-import { useAppDispatch } from "../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import ImageDeleteBox from "./ImageDeleteBox";
 
 export default function Image({
@@ -9,6 +9,7 @@ export default function Image({
   imageItem: ImageType;
 }): React.JSX.Element {
   const dispatch = useAppDispatch();
+  const { currentImage } = useAppSelector((state) => state.album);
 
   const handleImageDelete = () => {
     dispatch(deleteImage(imageItem));
@@ -18,7 +19,10 @@ export default function Image({
     dispatch(setCurrentImage(imageItem));
   };
   return (
-    <ImageDeleteBox handleImageDelete={handleImageDelete}>
+    <ImageDeleteBox
+      handleImageDelete={handleImageDelete}
+      isCurrentImage={currentImage?.id === imageItem.id}
+    >
       <img
         onClick={handleImageClick}
         className="h-32 cursor-pointer"
