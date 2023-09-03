@@ -1,6 +1,6 @@
 import React from "react";
 import { BsArrowLeft } from "react-icons/bs";
-import UploadImage from "./UploadImage";
+import ShowImage from "./ShowImage";
 
 export default function CreateAlbum(): React.JSX.Element {
   return (
@@ -15,7 +15,7 @@ export default function CreateAlbum(): React.JSX.Element {
         </div>
       </header>
       <div>
-        <UploadImage />
+        <ShowImage />
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import React from "react";
 import { ImageType, deleteImage, setCurrentImage } from "../store";
-import { GoX } from "react-icons/go";
 import { useAppDispatch } from "../hooks/hooks";
+import ImageDeleteBox from "./ImageDeleteBox";
 
 export default function Image({
   imageItem,
@@ -18,16 +18,12 @@ export default function Image({
     dispatch(setCurrentImage(imageItem));
   };
   return (
-    <div className="border border-dashed p-4 rounded  flex-none relative shadow m-2">
+    <ImageDeleteBox handleImageDelete={handleImageDelete}>
       <img
         onClick={handleImageClick}
         className="h-32 cursor-pointer"
         src={URL.createObjectURL(imageItem.imageFile)}
       />
-      <GoX
-        onClick={handleImageDelete}
-        className="text-xl absolute top-1 right-1 cursor-pointer"
-      />
-    </div>
+    </ImageDeleteBox>
   );
 }

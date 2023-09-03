@@ -29,7 +29,7 @@ export const albumSlice = createSlice({
         (image) => image.id !== action.payload.id
       );
     },
-    setCurrentImage(state, action: PayloadAction<ImageType>) {
+    setCurrentImage(state, action: PayloadAction<ImageType | null>) {
       state.currentImage = action.payload;
     },
   },
