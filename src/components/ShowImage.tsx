@@ -1,7 +1,6 @@
 import React from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-// import UploadImage from "./UploadImage";
 import { setCurrentImage } from "../store";
 import { ImageDropzone } from "./ImageDropzone";
 
@@ -9,7 +8,6 @@ export default function ShowImage(): React.JSX.Element {
   const dispatch = useAppDispatch();
   const { currentImage, images } = useAppSelector((state) => state.album);
   let currentImageIndex = -1;
-  // console.log(currentImageIndex);
   images.forEach((image, index) => {
     if (image.id === currentImage?.id) {
       if (index === images.length - 1) {
@@ -32,27 +30,28 @@ export default function ShowImage(): React.JSX.Element {
 
   if (!currentImage) {
     content = <ImageDropzone />;
-    // content = <UploadImage />;
   } else {
     content = (
-      <img
-        className=" h-96"
-        src={URL.createObjectURL(currentImage.imageFile)}
-      />
+      <div className="flex items-center justify-center">
+        <img
+          className="object-cover aspect-[16/9] h-96 "
+          src={URL.createObjectURL(currentImage.imageFile)}
+        />
+      </div>
     );
   }
   return (
     <div>
-      <div className="border rounded shadow flex flex-col items-center gap-20  min-h-fit max-w-sm min-w-fit  mx-auto">
-        <div className="flex items-center justify-between ">
+      <div className="border rounded shadow w-[30rem]  mx-auto">
+        <div className="flex items-center justify-between align-middle">
           <IoIosArrowForward
             onClick={handleArrowForwardClick}
-            className="text-5xl cursor-pointer p-2 rounded hover:bg-gray-100"
+            className="text-5xl cursor-pointer rounded hover:bg-gray-100"
           />
-          <div className="px-10 py-10">{content}</div>
+          <div className="w-96 h-96 ">{content}</div>
           <IoIosArrowBack
             onClick={handleArrowBackClick}
-            className="text-5xl cursor-pointer p-2 rounded hover:bg-gray-100"
+            className="text-5xl cursor-pointer  rounded hover:bg-gray-100"
           />
         </div>
       </div>
