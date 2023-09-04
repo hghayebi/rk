@@ -3,6 +3,7 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { setCurrentImage } from "../store";
 import { ImageDropzone } from "./ImageDropzone";
+import ImageRatioItem from "./ImageRatioItem";
 
 export default function ShowImage(): React.JSX.Element {
   const dispatch = useAppDispatch();
@@ -32,12 +33,7 @@ export default function ShowImage(): React.JSX.Element {
     content = <ImageDropzone />;
   } else {
     content = (
-      <div className="flex items-center justify-center">
-        <img
-          className="object-cover aspect-[16/9] h-96 "
-          src={URL.createObjectURL(currentImage.imageFile)}
-        />
-      </div>
+      <ImageRatioItem src={URL.createObjectURL(currentImage.imageFile)} />
     );
   }
   return (

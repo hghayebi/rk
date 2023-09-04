@@ -1,7 +1,5 @@
 import React from "react";
 import { BsImage } from "react-icons/bs";
-// import { addImage } from "../store/slices/albumSlice";
-// import { useAppDispatch } from "../hooks/hooks";
 
 export default function UploadImage(): React.JSX.Element {
   return (
