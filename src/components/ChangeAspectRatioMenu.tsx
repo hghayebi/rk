@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { BsImage, BsPlus } from "react-icons/bs";
-import { RatioType, setCurrentImage, setCurrentRatio } from "../store";
+import { RatioType, setCurrentMedia, setCurrentRatio } from "../store";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 
 const btnItems: Array<RatioType> = [
@@ -35,7 +35,7 @@ export default function ChangeAspectRatioMenu(): React.JSX.Element {
   };
 
   const handleAddClick = () => {
-    dispatch(setCurrentImage(null));
+    dispatch(setCurrentMedia(null));
   };
 
   const renderedButtons = btnItems.map((btn) => {

@@ -1,14 +1,14 @@
 import { useAppSelector } from "../hooks/hooks";
-import Image from "./Image";
+import Media from "./Media";
 export default function Album() {
-  const { images } = useAppSelector((state) => state.album);
-  const renderedImages = images.map((image) => {
-    if (!image) return;
-    return <Image key={image.id} imageItem={image} />;
+  const { medias } = useAppSelector((state) => state.album);
+  const renderedMedias = medias.map((media) => {
+    if (!media) return;
+    return <Media key={media.id} mediaItem={media} />;
   });
   return (
     <div className="overflow-x-scroll flex items-center gap-3 mt-10 py-5">
-      {renderedImages}
+      {renderedMedias}
     </div>
   );
 }

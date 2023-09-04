@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { useAppDispatch } from "../hooks/hooks";
-import { addImage } from "../store";
-import UploadImage from "./UploadImage";
+import { addMedia } from "../store";
+import UploadMedia from "./UploadMedia";
 
-export function ImageDropzone() {
+export function MediaDropzone() {
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
   // const [imgs, setImgs] = useState<Array<string>>([]);
   const dispatch = useAppDispatch();
@@ -24,14 +24,14 @@ export function ImageDropzone() {
   // });
 
   useEffect(() => {
-    dispatch(addImage(acceptedFiles));
+    dispatch(addMedia(acceptedFiles));
   }, [acceptedFiles, dispatch]);
   return (
     <section className="container">
       <div {...getRootProps({ className: "dropzone" })}>
         <input {...getInputProps()} />
         {/* <p>Drag 'n' drop some files here, or click to select files</p> */}
-        <UploadImage />
+        <UploadMedia />
       </div>
       <aside>{/* <h4>Files</h4> */}</aside>
     </section>

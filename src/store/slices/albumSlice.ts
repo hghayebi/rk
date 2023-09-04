@@ -1,44 +1,46 @@
 import { PayloadAction, createSlice, nanoid } from "@reduxjs/toolkit";
 import getCurrentImageIndex from "../../utils/getCurrentImageIndex";
 
-export interface ImageType {
+export interface MediaType {
   id: string;
-  imageFile: File;
+  mediaFile: File;
+  fileType: string;
 }
 export interface AlbumType {
-  images: Array<ImageType>;
-  currentImage: ImageType | null;
+  medias: Array<MediaType>;
+  currentMedia: MediaType | null;
 }
 
 const initialState: AlbumType = {
-  images: [],
-  currentImage: null,
+  medias: [],
+  currentMedia: null,
 };
 export const albumSlice = createSlice({
   name: "Album",
   initialState,
   reducers: {
-    addImage(state, action: PayloadAction<Array<File>>) {
+    addMedia(state, action: PayloadAction<Array<File>>) {
       const arr = action.payload.map((item) => ({
         id: nanoid(),
-        imageFile: item,
+        mediaFile: item,
+        fileType: item.type,
       }));
-      state.images.push(...arr);
+      state.medias.push(...arr);
     },
-    deleteImage(state, action: PayloadAction<ImageType>) {
-      if (action.payload.id === state.currentImage?.id) {
-        let index: number = getCurrentImageIndex(action.payload, state.images);
-        if (index === state.images.length - 1) index = -1;
-        state.currentImage = state.images[index + 1];
+    deleteMedia(state, action: PayloadAction<MediaType>) {
+      if (action.payload.id === state.currentMedia?.id) {
+        let index: number = getCurrentImageIndex(action.payload, state.medias);
+        if (index === state.medias.length - 1) index = -1;
+        state.currentMedia = state.medias[index + 1];
       }
-      state.images = state.images.filter(
+      state.medias = state.medias.filter(
         (image) => image.id !== action.payload.id
       );
     },
-    setCurrentImage(state, action: PayloadAction<ImageType | null>) {
-      state.currentImage = action.payload;
+    setCurrentMedia(state, action: PayloadAction<MediaType | null>) {
+      state.currentMedia = action.payload;
     },
   },
 });
 
-export const { addImage, deleteImage, setCurrentImage } = albumSlice.actions;
+export const { addMedia, deleteMedia, setCurrentMedia } = albumSlice.actions;

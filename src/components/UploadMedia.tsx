@@ -1,7 +1,7 @@
 import React from "react";
 import { BsImage } from "react-icons/bs";
 
-export default function UploadImage(): React.JSX.Element {
+export default function UploadMedia(): React.JSX.Element {
   return (
     <div className=" flex flex-col items-center justify-around mx-auto h-96">
       <div>

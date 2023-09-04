@@ -1,32 +1,32 @@
 import React from "react";
-import { ImageType, deleteImage, setCurrentImage } from "../store";
+import { MediaType, deleteMedia, setCurrentMedia } from "../store";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import ImageDeleteBox from "./ImageDeleteBox";
 
 export default function Image({
-  imageItem,
+  mediaItem,
 }: {
-  imageItem: ImageType;
+  mediaItem: MediaType;
 }): React.JSX.Element {
   const dispatch = useAppDispatch();
-  const { currentImage } = useAppSelector((state) => state.album);
+  const { currentMedia } = useAppSelector((state) => state.album);
 
   const handleImageDelete = () => {
-    dispatch(deleteImage(imageItem));
+    dispatch(deleteMedia(mediaItem));
   };
 
   const handleImageClick = () => {
-    dispatch(setCurrentImage(imageItem));
+    dispatch(setCurrentMedia(mediaItem));
   };
   return (
     <ImageDeleteBox
       handleImageDelete={handleImageDelete}
-      isCurrentImage={currentImage?.id === imageItem.id}
+      isCurrentImage={currentMedia?.id === mediaItem.id}
     >
       <img
         onClick={handleImageClick}
         className="h-32 cursor-pointer"
-        src={URL.createObjectURL(imageItem.imageFile)}
+        src={URL.createObjectURL(mediaItem.mediaFile)}
       />
     </ImageDeleteBox>
   );

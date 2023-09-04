@@ -1,6 +1,6 @@
 import React from "react";
 import { BsArrowLeft } from "react-icons/bs";
-import ShowImage from "./ShowImage";
+import ShowMedia from "./ShowMedia";
 import ChangeAspectRatioMenu from "./ChangeAspectRatioMenu";
 
 export default function CreateAlbum(): React.JSX.Element {
@@ -17,7 +17,7 @@ export default function CreateAlbum(): React.JSX.Element {
       </header>
       <div className="flex items-center justify-around">
         <ChangeAspectRatioMenu />
-        <ShowImage />
+        <ShowMedia />
       </div>
     </div>
   );
