@@ -1,6 +1,7 @@
 import React from "react";
 import { BsArrowLeft } from "react-icons/bs";
 import ShowImage from "./ShowImage";
+import ChangeAspectRatioMenu from "./ChangeAspectRatioMenu";
 
 export default function CreateAlbum(): React.JSX.Element {
   return (
@@ -14,7 +15,8 @@ export default function CreateAlbum(): React.JSX.Element {
           <BsArrowLeft className="text-2xl " />
         </div>
       </header>
-      <div>
+      <div className="flex items-center justify-around">
+        <ChangeAspectRatioMenu />
         <ShowImage />
       </div>
     </div>
