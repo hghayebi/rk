@@ -15,8 +15,9 @@ export default function CreateAlbum(): React.JSX.Element {
           <BsArrowLeft className="text-2xl " />
         </div>
       </header>
-      <div className="flex items-center justify-around">
+      <div className="flex items-center justify-between ">
         <ChangeAspectRatioMenu />
+
         <ShowMedia />
       </div>
     </div>

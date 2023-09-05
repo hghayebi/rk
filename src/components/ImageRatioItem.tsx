@@ -1,36 +1,64 @@
 import React from "react";
-import { useAppSelector } from "../hooks/hooks";
 import classNames from "classnames";
+import { MediaType, deleteMedia } from "../store";
+import { GoX } from "react-icons/go";
+import { useAppDispatch } from "../hooks/hooks";
 
 export default function ImageRatioItem({
-  src,
+  media,
 }: {
-  src: string;
+  media: MediaType;
 }): React.JSX.Element {
-  const { currentRatio } = useAppSelector((state) => state.ratio);
+  const dispatch = useAppDispatch();
+  // const ref = useRef<HTMLImageElement>(null);
+  // const [imgHeight, setImgHeight] = useState<number>(0);
+  // const [imgWidth, setImgWidth] = useState<number>(0);
 
-  const divClasses = classNames(" ", {
-    "flex items-center justify-center":
-      currentRatio?.vlaue === "1/1" ||
-      currentRatio?.vlaue === "9/16" ||
-      currentRatio?.vlaue === "4/5",
-    "w-96 my-20": currentRatio?.vlaue === "16/9",
-  });
-  const imgClasses = classNames(
-    "object-cover",
-    `aspect-[${currentRatio?.vlaue}]`,
+  // useEffect(() => {
+  //   const el = ref.current as HTMLImageElement;
+  //   const listener = () => {
+  //     setImgHeight(el.height);
+  //     setImgWidth(el.width);
+  //   };
+  //   el?.addEventListener("load", listener);
+
+  //   return () => {
+  //     el?.removeEventListener("load", listener);
+  //   };
+  // }, []);
+  // let wTrue: boolean = false;
+  // // && media.sizeValue === "1:1"
+  // if (imgWidth > imgHeight) {
+  //   wTrue = true;
+  // }
+  // // media.sizeValue === "16:9"
+  // if (imgWidth > imgHeight) {
+  //   wTrue = true;
+  // }
+
+  const divClasses = classNames(
+    "w-full h-full flex items-center justify-center relative",
     {
-      "h-96 aspect-[1/1]": currentRatio?.vlaue === "1/1",
-      "h-96 aspect-[9/16]": currentRatio?.vlaue === "9/16",
-      "h-96 aspect-[4/5]": currentRatio?.vlaue === "4/5",
-
-      "w-96 aspect-video": currentRatio?.vlaue === "16/9",
+      "flex-col ": media.sizeValue === "1:1" || media.sizeValue === "16:9",
+      "": media.sizeValue === "9:16" || media.sizeValue === "4:5",
     }
   );
+  const imgClasses = classNames("", {
+    "h-[35rem]": media.sizeValue === "9:16" || media.sizeValue === "4:5",
+    "w-[35rem]": media.sizeValue === "1:1" || media.sizeValue === "16:9",
+  });
 
   return (
     <div className={divClasses}>
-      <img className={imgClasses} src={src} alt="album pic" />
+      <img
+        className={`object-scale-down max-h-[35rem] max-w-[35rem] ${imgClasses}`}
+        src={URL.createObjectURL(media.mediaFile)}
+        alt="album pic"
+      />
+      <GoX
+        onClick={() => dispatch(deleteMedia(media))}
+        className="text-xl absolute top-1 right-1 cursor-pointer"
+      />
     </div>
   );
 }

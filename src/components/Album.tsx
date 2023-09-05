@@ -1,9 +1,11 @@
 import { useAppSelector } from "../hooks/hooks";
 import Media from "./Media";
 export default function Album() {
-  const { medias } = useAppSelector((state) => state.album);
-  const renderedMedias = medias.map((media) => {
+  const { approvedMedias } = useAppSelector((state) => state.album);
+  const renderedMedias = approvedMedias.map((media) => {
     if (!media) return;
+    if (!media.isApproved) return;
+
     return <Media key={media.id} mediaItem={media} />;
   });
   return (

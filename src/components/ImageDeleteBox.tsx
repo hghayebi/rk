@@ -13,9 +13,7 @@ export default function ImageDeleteBox({
   return (
     <div
       className={`border  p-4 rounded  flex-none relative shadow m-2 ${
-        isCurrentImage
-          ? "border-blue-500 shadow-lg border-2 -translate-y-3"
-          : "border-dashed"
+        isCurrentImage ? "border-blue-500 shadow-lg border-1" : "border-dashed"
       }`}
     >
       {children}
