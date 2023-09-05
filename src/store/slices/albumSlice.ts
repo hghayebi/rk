@@ -1,5 +1,4 @@
 import { PayloadAction, createSlice, nanoid } from "@reduxjs/toolkit";
-import getCurrentImageIndex from "../../utils/getCurrentImageIndex";
 
 export type SizeType = string; //"1:1" | "9:16" | "16:9" | "4:5";
 
