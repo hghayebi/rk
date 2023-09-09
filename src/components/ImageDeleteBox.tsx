@@ -12,7 +12,7 @@ export default function ImageDeleteBox({
 }): React.JSX.Element {
   return (
     <div
-      className={`border  p-4 rounded  flex-none relative shadow m-2 ${
+      className={`border  p-4 rounded  flex-none relative shadow m-2  hover:scale-110 hover:duration-700	 ${
         isCurrentImage ? "border-blue-500 shadow-lg border-1" : "border-dashed"
       }`}
     >
