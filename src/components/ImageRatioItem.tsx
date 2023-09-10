@@ -10,31 +10,6 @@ export default function ImageRatioItem({
   media: MediaType;
 }): React.JSX.Element {
   const dispatch = useAppDispatch();
-  // const ref = useRef<HTMLImageElement>(null);
-  // const [imgHeight, setImgHeight] = useState<number>(0);
-  // const [imgWidth, setImgWidth] = useState<number>(0);
-
-  // useEffect(() => {
-  //   const el = ref.current as HTMLImageElement;
-  //   const listener = () => {
-  //     setImgHeight(el.height);
-  //     setImgWidth(el.width);
-  //   };
-  //   el?.addEventListener("load", listener);
-
-  //   return () => {
-  //     el?.removeEventListener("load", listener);
-  //   };
-  // }, []);
-  // let wTrue: boolean = false;
-  // // && media.sizeValue === "1:1"
-  // if (imgWidth > imgHeight) {
-  //   wTrue = true;
-  // }
-  // // media.sizeValue === "16:9"
-  // if (imgWidth > imgHeight) {
-  //   wTrue = true;
-  // }
 
   const divClasses = classNames(
     "w-full h-full flex items-center justify-center relative",

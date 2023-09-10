@@ -2,7 +2,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface RatioType {
   label: string;
-  vlaue: string;
+  value: string;
+  haveContent: boolean;
 }
 
 export interface RatioSlice {
@@ -22,7 +23,10 @@ export const imageRatioSlice = createSlice({
     setCurrentRatio(state, action: PayloadAction<RatioType>) {
       state.currentRatio = action.payload;
     },
+    setRatios(state, action: PayloadAction<Array<RatioType>>) {
+      state.ratios = action.payload;
+    },
   },
 });
 
-export const { setCurrentRatio } = imageRatioSlice.actions;
+export const { setCurrentRatio, setRatios } = imageRatioSlice.actions;
