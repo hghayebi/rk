@@ -3,6 +3,7 @@ import {
   MediaType,
   deleteMedia,
   setCurrentMedia,
+  setCurrentMediaListNull,
   setCurrentSize,
 } from "../store";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
@@ -18,11 +19,13 @@ export default function Image({
 
   const handleImageDelete = () => {
     dispatch(deleteMedia(mediaItem));
+    dispatch(setCurrentMediaListNull(mediaItem));
   };
 
   const handleImageClick = () => {
     dispatch(setCurrentMedia(mediaItem));
     dispatch(setCurrentSize(mediaItem.sizeValue));
+    console.log("test");
   };
   return (
     <ImageDeleteBox
