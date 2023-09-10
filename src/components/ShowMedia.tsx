@@ -28,10 +28,11 @@ export default function ShowMedia(): React.JSX.Element {
   // };
 
   let content;
-
+  let bg = "";
   if (!currentMedia) {
     content = <MediaDropzone />;
   } else {
+    bg = "bg-gray-900";
     try {
       content = <ImageRatioItem media={currentMedia} />;
     } catch (error) {
@@ -41,8 +42,10 @@ export default function ShowMedia(): React.JSX.Element {
   }
   return (
     <div>
-      <div className="border rounded shadow justify-self-end mb-4 ">
-        <div className=" w-[35rem] h-[35rem] border">{content}</div>
+      <div className={`border rounded shadow justify-self-end mb-4  ${bg}`}>
+        <div className=" w-[35rem] h-[35rem] border flex items-center justify-center">
+          {content}
+        </div>
       </div>
     </div>
   );
