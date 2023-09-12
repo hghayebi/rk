@@ -3,6 +3,7 @@ import classNames from "classnames";
 import { MediaType, deleteMedia } from "../store";
 import { GoX } from "react-icons/go";
 import { useAppDispatch } from "../hooks/hooks";
+import LogoBox from "./LogoBox";
 
 export default function ImageRatioItem({
   media,
@@ -35,6 +36,7 @@ export default function ImageRatioItem({
         onClick={() => dispatch(deleteMedia(media))}
         className="text-xl absolute top-1 right-1 cursor-pointer"
       />
+      <LogoBox />
     </div>
   );
 }

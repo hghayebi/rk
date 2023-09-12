@@ -1,13 +1,16 @@
 import { PayloadAction, createSlice, nanoid } from "@reduxjs/toolkit";
 
 export type SizeType = string; //"1:1" | "9:16" | "16:9" | "4:5";
-
+export type LogoSizeType = { width: number; height: number };
+export type LogoOffsetType = { bottom: number; right: number };
 export interface MediaType {
   id: string;
   mediaFile: File;
   fileType: string;
   isApproved: boolean;
   sizeValue: SizeType;
+  logoSize: LogoSizeType;
+  logoOffset: LogoOffsetType;
 }
 
 export interface MediaList {
@@ -36,12 +39,14 @@ export const albumSlice = createSlice({
   initialState,
   reducers: {
     addMedia(state, action: PayloadAction<File>) {
-      const media = {
+      const media: MediaType = {
         id: nanoid(),
         mediaFile: action.payload,
         fileType: action.payload?.type,
         isApproved: false,
         sizeValue: state.currentSize,
+        logoSize: { width: 20, height: 20 },
+        logoOffset: { bottom: 1, right: 1 },
       };
 
       state.currentMedia = media;
@@ -183,6 +188,31 @@ export const albumSlice = createSlice({
         );
       }
     },
+
+    setLogoSize(state, action: PayloadAction<LogoSizeType>) {
+      if (state.currentMedia) {
+        state.medias = state.medias.filter(
+          (media) => media.id !== state.currentMedia?.id
+        );
+        state.currentMedia = {
+          ...state.currentMedia,
+          logoSize: action.payload,
+        };
+        state.medias.push(state.currentMedia);
+      }
+    },
+    setLogoOffset(state, action: PayloadAction<LogoOffsetType>) {
+      if (state.currentMedia) {
+        state.medias = state.medias.filter(
+          (media) => media.id !== state.currentMedia?.id
+        );
+        state.currentMedia = {
+          ...state.currentMedia,
+          logoOffset: action.payload,
+        };
+        state.medias.push(state.currentMedia);
+      }
+    },
   },
 });
 
@@ -193,4 +223,6 @@ export const {
   setCurrentSize,
   setApprove,
   setCurrentMediaListNull,
+  setLogoOffset,
+  setLogoSize,
 } = albumSlice.actions;
