@@ -10,7 +10,8 @@ export interface MediaType {
   isApproved: boolean;
   sizeValue: SizeType;
   logoSize: LogoSizeType;
-  logoOffset: LogoOffsetType;
+  logoOffset?: LogoOffsetType;
+  mediaContainerPosition?: DOMRect;
 }
 
 export interface MediaList {
@@ -46,7 +47,7 @@ export const albumSlice = createSlice({
         isApproved: false,
         sizeValue: state.currentSize,
         logoSize: { width: 20, height: 20 },
-        logoOffset: { bottom: 1, right: 1 },
+        // logoOffset: { bottom: 1, right: 1 },
       };
 
       state.currentMedia = media;
@@ -201,14 +202,37 @@ export const albumSlice = createSlice({
         state.medias.push(state.currentMedia);
       }
     },
-    setLogoOffset(state, action: PayloadAction<LogoOffsetType>) {
+    setLogoOffset(state, action: PayloadAction<DOMRect>) {
       if (state.currentMedia) {
         state.medias = state.medias.filter(
           (media) => media.id !== state.currentMedia?.id
         );
         state.currentMedia = {
           ...state.currentMedia,
-          logoOffset: action.payload,
+          logoOffset: {
+            bottom:
+              state.currentMedia.mediaContainerPosition?.bottom -
+              action.payload.bottom,
+
+            right:
+              state.currentMedia.mediaContainerPosition?.right -
+              action.payload.right,
+          },
+        };
+        state.medias.push(state.currentMedia);
+        state.currentMedia = { ...state.currentMedia };
+      }
+    },
+
+    setMediaContainerPosition(state, action: PayloadAction<DOMRect>) {
+      if (state.currentMedia) {
+        state.medias = state.medias.filter(
+          (media) => media.id !== state.currentMedia?.id
+        );
+
+        state.currentMedia = {
+          ...state.currentMedia,
+          mediaContainerPosition: action.payload,
         };
         state.medias.push(state.currentMedia);
       }
@@ -225,4 +249,5 @@ export const {
   setCurrentMediaListNull,
   setLogoOffset,
   setLogoSize,
+  setMediaContainerPosition,
 } = albumSlice.actions;

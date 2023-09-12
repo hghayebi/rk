@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import classNames from "classnames";
-import { MediaType, deleteMedia } from "../store";
+import { MediaType, deleteMedia, setMediaContainerPosition } from "../store";
 import { GoX } from "react-icons/go";
 import { useAppDispatch } from "../hooks/hooks";
 import LogoBox from "./LogoBox";
@@ -11,6 +11,25 @@ export default function ImageRatioItem({
   media: MediaType;
 }): React.JSX.Element {
   const dispatch = useAppDispatch();
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const r = ref.current;
+    dispatch(setMediaContainerPosition(r?.getBoundingClientRect() as DOMRect));
+    console.log("c: ", r?.getBoundingClientRect());
+
+    // const listner = () => {
+    //   dispatch(
+    //     setMediaContainerPosition(r?.getBoundingClientRect() as DOMRect)
+    //   );
+    //   console.log("c: ", r?.getBoundingClientRect());
+    // };
+
+    // r?.addEventListener("load", listner);
+    // return () => {
+    //   r?.removeEventListener("load", listner);
+    // };
+  }, [dispatch]);
 
   const divClasses = classNames(" flex items-center justify-center relative ", {
     "flex-col w-full h-full": media.sizeValue === "1:1",
@@ -26,7 +45,7 @@ export default function ImageRatioItem({
   });
 
   return (
-    <div className={divClasses}>
+    <div ref={ref} className={divClasses}>
       <img
         className={`object-cover   ${imgClasses}`}
         src={URL.createObjectURL(media.mediaFile)}
