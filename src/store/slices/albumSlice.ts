@@ -141,45 +141,76 @@ export const albumSlice = createSlice({
         );
 
         // Return if any media have isApproved to true and clear  -->
-        if (mediaAt1by1?.isApproved) {
-          state.medias = [];
-          state.currentMedia = null;
-          state.currentMediaList = null;
-          return;
-        }
-        if (mediaAt9by16?.isApproved) {
-          state.medias = [];
-          state.currentMedia = null;
-          state.currentMediaList = null;
-          return;
-        }
-        if (mediaAt16by9?.isApproved) {
-          state.medias = [];
-          state.currentMedia = null;
-          state.currentMediaList = null;
-          return;
-        }
-        if (mediaAt4by5?.isApproved) {
-          state.medias = [];
-          state.currentMedia = null;
-          state.currentMediaList = null;
-          return;
-        }
+
         // Return if any media have isApproved to true and clear  <--
 
         if (mediaAt1by1) {
+          if (mediaAt1by1?.isApproved) {
+            state.medias = [];
+            state.currentMedia = null;
+            state.currentMediaList = null;
+            return;
+          }
           mediaAt1by1.isApproved = true;
+          state.mediasList = state.mediasList.filter(
+            (m) => m.id !== state.currentMediaList?.id
+          );
+
           state.approvedMedias.push(mediaAt1by1);
+          state.approvedMedias = state.approvedMedias.filter(
+            (media) =>
+              media.id !==
+              (mediaAt9by16?.id || mediaAt16by9?.id || mediaAt4by5?.id)
+          );
           state.currentMediaList = { id: mediaAt1by1.id, medias: [] };
+          mediaAt9by16 ? (mediaAt9by16.isApproved = false) : null;
+          mediaAt16by9 ? (mediaAt16by9.isApproved = false) : null;
+          mediaAt4by5 ? (mediaAt4by5.isApproved = false) : null;
         } else if (mediaAt9by16) {
+          if (mediaAt9by16?.isApproved) {
+            state.medias = [];
+            state.currentMedia = null;
+            state.currentMediaList = null;
+            return;
+          }
+          state.mediasList = state.mediasList.filter(
+            (m) => m.id !== state.currentMediaList?.id
+          );
           mediaAt9by16.isApproved = true;
           state.approvedMedias.push(mediaAt9by16);
+          state.approvedMedias = state.approvedMedias.filter(
+            (media) => media.id !== (mediaAt16by9?.id || mediaAt4by5?.id)
+          );
           state.currentMediaList = { id: mediaAt9by16.id, medias: [] };
+          mediaAt16by9 ? (mediaAt16by9.isApproved = false) : null;
+          mediaAt4by5 ? (mediaAt4by5.isApproved = false) : null;
         } else if (mediaAt16by9) {
+          if (mediaAt16by9?.isApproved) {
+            state.medias = [];
+            state.currentMedia = null;
+            state.currentMediaList = null;
+            return;
+          }
+          state.mediasList = state.mediasList.filter(
+            (m) => m.id !== state.currentMediaList?.id
+          );
           mediaAt16by9.isApproved = true;
           state.approvedMedias.push(mediaAt16by9);
+          state.approvedMedias = state.approvedMedias.filter(
+            (media) => media.id !== mediaAt4by5?.id
+          );
           state.currentMediaList = { id: mediaAt16by9.id, medias: [] };
+          mediaAt4by5 ? (mediaAt4by5.isApproved = false) : null;
         } else if (mediaAt4by5) {
+          if (mediaAt4by5?.isApproved) {
+            state.medias = [];
+            state.currentMedia = null;
+            state.currentMediaList = null;
+            return;
+          }
+          state.mediasList = state.mediasList.filter(
+            (m) => m.id !== state.currentMediaList?.id
+          );
           mediaAt4by5.isApproved = true;
           state.approvedMedias.push(mediaAt4by5);
           state.currentMediaList = { id: mediaAt4by5.id, medias: [] };
@@ -202,11 +233,26 @@ export const albumSlice = createSlice({
         }
 
         if (state.currentMediaList) {
+          state.mediasList = state.mediasList.filter(
+            (m) => m.id !== state.currentMediaList?.id
+          );
           state.mediasList.push(state.currentMediaList);
         }
         state.currentMediaList = null;
         state.medias = [];
         state.currentMedia = null;
+        state.approvedMedias = state.approvedMedias.filter(
+          (media) => media.isApproved
+        );
+        let ids = state.approvedMedias.map((media) => media.id);
+        ids = [...new Set(ids)];
+
+        const arr: MediaType[] = [];
+        ids.forEach((id) => {
+          const m = state.approvedMedias.find((media) => media.id === id);
+          if (m) arr.push(m);
+        });
+        state.approvedMedias = arr;
       }
     },
 
