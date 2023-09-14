@@ -85,7 +85,7 @@ export default function LogoBox(): React.JSX.Element {
           height={currentMedia?.logoSize.height || 200}
           // draggableOpts={{ grid: [25, 25] }}
           minConstraints={[40, 40]}
-          maxConstraints={[500, 500]}
+          maxConstraints={[200, 200]}
           onResize={() => {
             // console.log(data);
             dispatch(
@@ -98,11 +98,7 @@ export default function LogoBox(): React.JSX.Element {
             // dispatch(setLogoSize({ width: data.clientX, height: data.clientY }));
           }}
         >
-          <img
-            className="w-full h-full  "
-            alt="rakvin logo"
-            src="/RAKVIN.svg"
-          />
+          <img className="w-100% h-full " alt="rakvin logo" src="/RAKVIN.svg" />
         </ResizableBox>
       </div>
     </Draggable>
