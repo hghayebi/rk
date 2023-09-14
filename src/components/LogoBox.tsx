@@ -2,12 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { ResizableBox } from "react-resizable";
 import "react-resizable/css/styles.css";
-import {
-  MediaType,
-  setCurrentMedia,
-  setLogoOffset,
-  setLogoSize,
-} from "../store";
+import { setLogoOffset, setLogoSize } from "../store";
 import Draggable from "react-draggable";
 
 export default function LogoBox(): React.JSX.Element {
