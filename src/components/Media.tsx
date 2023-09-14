@@ -23,8 +23,11 @@ export default function Image({
   };
 
   const handleImageClick = () => {
-    dispatch(setCurrentMedia(mediaItem));
-    dispatch(setCurrentSize(mediaItem.sizeValue));
+    dispatch(setCurrentMedia(null));
+    setTimeout(() => {
+      dispatch(setCurrentMedia(mediaItem));
+      dispatch(setCurrentSize(mediaItem.sizeValue));
+    }, 0.00001);
     console.log("test");
   };
   return (

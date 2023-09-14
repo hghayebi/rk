@@ -376,8 +376,8 @@ export const albumSlice = createSlice({
         };
         state.medias.push(state.currentMedia);
         // state.currentMedia = { ...state.currentMedia };
-        console.log(state.currentMedia.logoOffset.bottom);
-        console.log(state.currentMedia.logoOffset.right);
+        // console.log(state.currentMedia.logoOffset.bottom);
+        // console.log(state.currentMedia.logoOffset.right);
 
         // n
         state.approvedMedias = state.approvedMedias.map((media) => {

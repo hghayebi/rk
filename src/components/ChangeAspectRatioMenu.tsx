@@ -53,7 +53,10 @@ export default function ChangeAspectRatioMenu(): React.JSX.Element {
     dispatch(setCurrentSize(btn.label));
     const media = medias.find((media) => media.sizeValue === btn.label);
     if (media) {
-      dispatch(setCurrentMedia(media));
+      dispatch(setCurrentMedia(null));
+      setTimeout(() => {
+        dispatch(setCurrentMedia(media));
+      }, 0.0001);
     } else {
       dispatch(setCurrentMedia(null));
     }
