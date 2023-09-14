@@ -76,6 +76,7 @@ export default function LogoBox(): React.JSX.Element {
         className={`absolute  hover:cursor-pointer`}
       >
         <ResizableBox
+          className="box"
           resizeHandles={["sw", "se", "nw", "ne", "w", "e", "n", "s"]}
           width={currentMedia?.logoSize.width || 200}
           height={currentMedia?.logoSize.height || 200}
@@ -94,7 +95,7 @@ export default function LogoBox(): React.JSX.Element {
             // dispatch(setLogoSize({ width: data.clientX, height: data.clientY }));
           }}
         >
-          <img className="w-100% h-full " alt="rakvin logo" src="/RAKVIN.svg" />
+          <img className="w-full h-full " alt="rakvin logo" src="/RAKVIN.svg" />
         </ResizableBox>
       </div>
     </Draggable>
