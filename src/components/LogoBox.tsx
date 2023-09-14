@@ -73,14 +73,15 @@ export default function LogoBox(): React.JSX.Element {
           bottom: `${bottom || 0}px`,
           right: `${right || 0}px`,
         }}
-        className={`absolute border`}
+        className={`absolute  hover:cursor-pointer`}
       >
         <ResizableBox
+          resizeHandles={["sw", "se", "nw", "ne", "w", "e", "n", "s"]}
           width={currentMedia?.logoSize.width || 200}
           height={currentMedia?.logoSize.height || 200}
           // draggableOpts={{ grid: [25, 25] }}
           minConstraints={[40, 40]}
-          maxConstraints={[200, 200]}
+          maxConstraints={[500, 500]}
           onResize={() => {
             // console.log(data);
             dispatch(

@@ -54,7 +54,7 @@ export default function ImageRatioItem({
       />
       <GoX
         onClick={() => dispatch(deleteMedia(media))}
-        className="text-xl absolute top-1 right-1 cursor-pointer"
+        className="text-xl absolute top-1 right-1 cursor-pointer text-gray-400"
       />
       <LogoBox />
     </div>
