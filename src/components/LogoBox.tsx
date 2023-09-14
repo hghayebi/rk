@@ -37,6 +37,7 @@ export default function LogoBox(): React.JSX.Element {
   return (
     <Draggable
       // defaultClassName={`  absolute bottom-0 right-0 `}
+      bounds={`parent`}
       onStop={() => {
         dispatch(
           setLogoOffset(ref.current?.getBoundingClientRect() as DOMRect)
