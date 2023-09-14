@@ -16,7 +16,8 @@ export default function ImageRatioItem({
   useEffect(() => {
     const r = ref.current;
     dispatch(setMediaContainerPosition(r?.getBoundingClientRect() as DOMRect));
-    console.log("c: ", r?.getBoundingClientRect());
+    console.log("c: ", r?.getBoundingClientRect().bottom);
+    console.log("c: ", r?.getBoundingClientRect().right);
 
     // const listner = () => {
     //   dispatch(

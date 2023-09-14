@@ -1,44 +1,76 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { ResizableBox } from "react-resizable";
 import "react-resizable/css/styles.css";
-import { setCurrentMedia, setLogoOffset, setLogoSize } from "../store";
+import {
+  MediaType,
+  setCurrentMedia,
+  setLogoOffset,
+  setLogoSize,
+} from "../store";
 import Draggable from "react-draggable";
 
 export default function LogoBox(): React.JSX.Element {
+  // const [bottom, setBottom] = useState(0);
+  // const [right, setRight] = useState(0);
+
   const dispatch = useAppDispatch();
   const { currentMedia } = useAppSelector((state) => state.album);
 
   const ref = useRef<HTMLDivElement>(null);
-  let b = 0;
-  let r = 0;
-  b = currentMedia?.logoOffset?.bottom;
 
-  r = currentMedia?.logoOffset?.right;
+  // b = currentMedia?.logoOffset?.bottom;
 
-  useEffect(() => {
-    console.log("b: " + b);
-    console.log("r: " + r);
-  });
+  // r = currentMedia?.logoOffset?.right;
+
+  // useEffect(() => {
+  //   setBottom(currentMedia?.logoOffset?.bottom);
+  //   setRight(currentMedia?.logoOffset?.right);
+  //   console.log("b: " + bottom);
+  //   console.log("r: " + right);
+  // }, [currentMedia, bottom, right]);
+
+  // useEffect(() => {
+  //   console.log("currentmedia changed");
+  // }, [currentMedia]);
 
   return (
     <Draggable
-      onStop={(e) => {
-        console.log(e);
-        // console.log(ref.current?.getClientRects());
-        console.log(ref.current?.getBoundingClientRect());
-
+      // defaultClassName={`  absolute bottom-0 right-0 `}
+      onStop={() => {
         dispatch(
           setLogoOffset(ref.current?.getBoundingClientRect() as DOMRect)
         );
-        dispatch(setCurrentMedia(currentMedia));
+        if (currentMedia) {
+          // dispatch(
+          //   setCurrentMedia({
+          //     ...currentMedia,
+          // logoOffset: {
+          //   bottom:
+          //     ref.current?.getBoundingClientRect().bottom -
+          //     currentMedia.mediaContainerPosition?.bottom,
+          //   right:
+          //     ref.current?.getBoundingClientRect().right -
+          //     currentMedia.mediaContainerPosition?.right,
+          // },
+          //   })
+          // );
+          console.log(
+            `currentmedia: logoOffset:b: ${currentMedia.logoOffset.bottom} r: ${currentMedia.logoOffset.right}`
+          );
+          // dispatch(
+          //   setCurrentMedia({
+          //     ...currentMedia,
+          //   })
+          // );
+        }
       }}
     >
       <div
         ref={ref}
         style={{
-          bottom: `${-b || 0}px`,
-          right: `${-r || 0}px`,
+          bottom: `${currentMedia?.logoOffset.bottom || 0}px`,
+          right: `${currentMedia?.logoOffset.right || 0}px`,
         }}
         className={`absolute border `}
       >

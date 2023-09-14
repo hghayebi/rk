@@ -10,12 +10,12 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-      {/* <div className="mx-auto container" style={{ direction: "ltr" }}>
+  // <React.StrictMode>
+  <Provider store={store}>
+    <App />
+    {/* <div className="mx-auto container" style={{ direction: "ltr" }}>
         <HorizantalScroll />
       </div> */}
-    </Provider>
-  </React.StrictMode>
+  </Provider>
+  // </React.StrictMode>
 );

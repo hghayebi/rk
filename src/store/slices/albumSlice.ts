@@ -10,8 +10,8 @@ export interface MediaType {
   isApproved: boolean;
   sizeValue: SizeType;
   logoSize: LogoSizeType;
-  logoOffset?: LogoOffsetType;
-  mediaContainerPosition?: DOMRect;
+  logoOffset: LogoOffsetType;
+  mediaContainerPosition: DOMRect;
 }
 
 export interface MediaList {
@@ -46,8 +46,9 @@ export const albumSlice = createSlice({
         fileType: action.payload?.type,
         isApproved: false,
         sizeValue: state.currentSize,
-        logoSize: { width: 20, height: 20 },
-        // logoOffset: { bottom: 1, right: 1 },
+        logoSize: { width: 40, height: 40 },
+        logoOffset: { bottom: 1, right: 1 },
+        mediaContainerPosition: new DOMRect(),
       };
 
       state.currentMedia = media;
@@ -122,6 +123,7 @@ export const albumSlice = createSlice({
 
     setCurrentSize(state, action: PayloadAction<SizeType>) {
       state.currentSize = action.payload;
+      if (state.currentMedia) state.currentMedia = { ...state.currentMedia };
     },
 
     setApprove(state) {
@@ -295,6 +297,45 @@ export const albumSlice = createSlice({
           logoSize: action.payload,
         };
         state.medias.push(state.currentMedia);
+        state.approvedMedias = state.approvedMedias.map((media) => {
+          if (media.id === state.currentMedia?.id) {
+            return {
+              ...state.currentMedia,
+              logoSize: action.payload,
+            };
+          }
+          return media;
+        });
+
+        if (state.currentMediaList) {
+          state.currentMediaList.medias = state.medias;
+          state.mediasList = state.mediasList.filter(
+            (mediaList) => mediaList.id !== state.currentMediaList?.id
+          );
+          state.mediasList.push(state.currentMediaList);
+        }
+
+        // if (state.currentMediaList) {
+        //   state.currentMediaList.medias = state.medias;
+        // }
+        // if (state.currentMediaList)
+        //   state.currentMediaList.medias = state.medias;
+        // state.mediasList = state.mediasList.map((mediaList) => {
+        //   const media: MediaType | undefined = mediaList.medias.find(
+        //     (media) => media.id === state.currentMedia?.id
+        //   );
+        //   if (media) {
+        //     const mL: MediaList = {
+        //       id: mediaList.id,
+        //       medias: mediaList.medias.map((m: MediaType) => {
+        //         if (m.id === media.id) return state.currentMedia;
+        //         return m;
+        //       }),
+        //     };
+        //     return mL;
+        //   }
+        //   return mediaList;
+        // });
       }
     },
     setLogoOffset(state, action: PayloadAction<DOMRect>) {
@@ -302,6 +343,25 @@ export const albumSlice = createSlice({
         state.medias = state.medias.filter(
           (media) => media.id !== state.currentMedia?.id
         );
+        console.log("in store bottom:");
+        console.log(
+          state.currentMedia.mediaContainerPosition?.bottom -
+            action.payload.bottom
+        );
+        console.log("in store right:");
+        console.log(
+          state.currentMedia.mediaContainerPosition?.right -
+            action.payload.right
+        );
+        // (state.currentMedia.logoOffset = {
+        //   bottom:
+        //     state.currentMedia.mediaContainerPosition?.bottom -
+        //     action.payload.bottom,
+
+        //   right:
+        //     state.currentMedia.mediaContainerPosition?.right -
+        //     action.payload.right,
+        // }),
         state.currentMedia = {
           ...state.currentMedia,
           logoOffset: {
@@ -315,7 +375,36 @@ export const albumSlice = createSlice({
           },
         };
         state.medias.push(state.currentMedia);
-        state.currentMedia = { ...state.currentMedia };
+        // state.currentMedia = { ...state.currentMedia };
+        console.log(state.currentMedia.logoOffset.bottom);
+        console.log(state.currentMedia.logoOffset.right);
+
+        // n
+        state.approvedMedias = state.approvedMedias.map((media) => {
+          if (media.id === state.currentMedia?.id) {
+            return {
+              ...state.currentMedia,
+              logoOffset: {
+                bottom:
+                  state.currentMedia.mediaContainerPosition?.bottom -
+                  action.payload.bottom,
+
+                right:
+                  state.currentMedia.mediaContainerPosition?.right -
+                  action.payload.right,
+              },
+            };
+          }
+          return media;
+        });
+
+        if (state.currentMediaList) {
+          state.currentMediaList.medias = state.medias;
+          state.mediasList = state.mediasList.filter(
+            (mediaList) => mediaList.id !== state.currentMediaList?.id
+          );
+          state.mediasList.push(state.currentMediaList);
+        }
       }
     },
 
