@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import { MediaType, deleteMedia, setMediaContainerPosition } from "../store";
-import { GoX } from "react-icons/go";
+import { GoXCircleFill } from "react-icons/go";
 import { useAppDispatch } from "../hooks/hooks";
 import LogoBox from "./LogoBox";
 
@@ -10,6 +10,7 @@ export default function ImageRatioItem({
 }: {
   media: MediaType;
 }): React.JSX.Element {
+  const [deleteButton, setDeleteButton] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const ref = useRef<HTMLDivElement>(null);
 
@@ -46,16 +47,23 @@ export default function ImageRatioItem({
   });
 
   return (
-    <div ref={ref} className={divClasses}>
+    <div
+      ref={ref}
+      className={divClasses}
+      onMouseEnter={() => setDeleteButton(true)}
+      onMouseLeave={() => setDeleteButton(false)}
+    >
       <img
-        className={`object-cover   ${imgClasses}`}
+        className={`object-cover   ${imgClasses} shadow`}
         src={URL.createObjectURL(media.mediaFile)}
         alt="album pic"
       />
-      <GoX
-        onClick={() => dispatch(deleteMedia(media))}
-        className="text-xl absolute top-1 right-1 cursor-pointer text-gray-400"
-      />
+      {deleteButton && (
+        <GoXCircleFill
+          onClick={() => dispatch(deleteMedia(media))}
+          className="text-2xl absolute top-1 right-1 cursor-pointer text-slate-400 hover:text-slate-500 bg-slate-300 rounded-full"
+        />
+      )}
       <LogoBox />
     </div>
   );
