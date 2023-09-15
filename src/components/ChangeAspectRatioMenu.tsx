@@ -89,7 +89,7 @@ export default function ChangeAspectRatioMenu(): React.JSX.Element {
     );
   });
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 self-center">
       <button
         onClick={handleAddClick}
         className="py-2 shadow px-4 rounded flex items-center "

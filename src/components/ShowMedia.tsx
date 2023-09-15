@@ -43,7 +43,7 @@ export default function ShowMedia(): React.JSX.Element {
   }
   return (
     <div>
-      <div className={` rounded  justify-self-end mb-4  ${bg}`}>
+      <div className={` items-center rounded  justify-self-center mb-4  ${bg}`}>
         <div className=" w-[35rem] h-[35rem]  flex items-center justify-center">
           {content}
         </div>

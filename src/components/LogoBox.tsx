@@ -7,7 +7,7 @@ import Draggable from "react-draggable";
 
 export default function LogoBox(): React.JSX.Element {
   const dispatch = useAppDispatch();
-  const { currentMedia } = useAppSelector((state) => state.album);
+  const { currentMedia, inSendPage } = useAppSelector((state) => state.album);
   const { currentRatio } = useAppSelector((state) => state.ratio);
   const ratio = currentRatio?.label;
   const size = currentMedia?.sizeValue;
@@ -48,6 +48,7 @@ export default function LogoBox(): React.JSX.Element {
   return (
     <Draggable
       // defaultClassName={`  absolute bottom-0 right-0 `}
+      disabled={inSendPage}
       bounds={`parent`}
       onStop={() => {
         // setTimeout(() => {

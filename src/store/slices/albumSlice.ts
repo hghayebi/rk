@@ -25,6 +25,7 @@ export interface AlbumType {
   currentSize: SizeType;
   mediasList: Array<MediaList>;
   currentMediaList: MediaList | null;
+  inSendPage: boolean;
 }
 
 const initialState: AlbumType = {
@@ -34,6 +35,7 @@ const initialState: AlbumType = {
   currentSize: "1:1",
   mediasList: [],
   currentMediaList: null,
+  inSendPage: false,
 };
 export const albumSlice = createSlice({
   name: "Album",
@@ -421,6 +423,9 @@ export const albumSlice = createSlice({
         state.medias.push(state.currentMedia);
       }
     },
+    setInSendPage(state, action: PayloadAction<boolean>) {
+      state.inSendPage = action.payload;
+    },
   },
 });
 
@@ -434,4 +439,5 @@ export const {
   setLogoOffset,
   setLogoSize,
   setMediaContainerPosition,
+  setInSendPage,
 } = albumSlice.actions;

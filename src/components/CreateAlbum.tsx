@@ -3,19 +3,27 @@ import { BsArrowLeft } from "react-icons/bs";
 import ShowMedia from "./ShowMedia";
 import ChangeAspectRatioMenu from "./ChangeAspectRatioMenu";
 
+import { Link } from "react-router-dom";
+import { useAppDispatch } from "../hooks/hooks";
+import { setInSendPage } from "../store";
+
 export default function CreateAlbum(): React.JSX.Element {
+  const dispatch = useAppDispatch();
   return (
     <div className="">
       <header className="flex items-center justify-between  text-xl mb-5">
-        <div className="text-inherit !text-blue-500 cursor-pointer hover:bg-gray-50 p-2 rounded hover:shadow">
-          Next
-        </div>
+        <Link to={"/send-album"} onClick={() => dispatch(setInSendPage(true))}>
+          <div className="text-inherit !text-blue-500 cursor-pointer hover:bg-gray-50 p-2 rounded hover:shadow">
+            Next
+          </div>
+        </Link>
+
         <div className="text-inherit">ایجاد آلبوم جدید</div>
         <div className="cursor-pointer  hover:bg-gray-50 p-2 rounded hover:shadow">
           <BsArrowLeft className="text-2xl " />
         </div>
       </header>
-      <div className="flex items-center justify-between ">
+      <div className="flex items-center justify-center gap-10 ">
         <ChangeAspectRatioMenu />
 
         <ShowMedia />

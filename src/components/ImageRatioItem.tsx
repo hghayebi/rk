@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import { MediaType, deleteMedia, setMediaContainerPosition } from "../store";
 import { GoXCircleFill } from "react-icons/go";
-import { useAppDispatch } from "../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import LogoBox from "./LogoBox";
 
 export default function ImageRatioItem({
@@ -13,6 +13,7 @@ export default function ImageRatioItem({
   const [deleteButton, setDeleteButton] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const ref = useRef<HTMLDivElement>(null);
+  const { inSendPage } = useAppSelector((state) => state.album);
 
   useEffect(() => {
     const r = ref.current;
@@ -58,7 +59,7 @@ export default function ImageRatioItem({
         src={URL.createObjectURL(media.mediaFile)}
         alt="album pic"
       />
-      {deleteButton && (
+      {deleteButton && !inSendPage && (
         <GoXCircleFill
           onClick={() => dispatch(deleteMedia(media))}
           className="text-2xl absolute top-1 right-1 cursor-pointer text-slate-400 hover:text-slate-500 bg-slate-300 rounded-full"

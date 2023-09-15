@@ -9,7 +9,7 @@ export default function Album() {
     return <Media key={media.id} mediaItem={media} />;
   });
   return (
-    <div className="overflow-x-scroll flex items-center gap-3 mt-10 py-5">
+    <div className="overflow-x-scroll flex items-center gap-3 mt-10 py-5 justify-center">
       {renderedMedias}
     </div>
   );
