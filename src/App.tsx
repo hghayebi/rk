@@ -6,7 +6,7 @@ import ApprovedAlbum from "./components/ApprovedAlbum";
 
 export default function App(): React.JSX.Element {
   return (
-    <div className="mx-auto !m-5 max-w-7xl">
+    <div className="mx-auto m-5 max-w-5xl">
       <BrowserRouter>
         <Routes>
           <Route
