@@ -4,15 +4,25 @@ import { Link } from "react-router-dom";
 import ShowMedia from "./ShowMedia";
 import Album from "./Album";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import { setCurrentMedia, setInSendPage } from "../store";
+import { setInSendPage } from "../store";
+import AlbumForm from "./AlbumForm";
 
 export default function ApprovedAlbum(): React.JSX.Element {
   const [readyToSend, setReadyToSend] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const { approvedMedias } = useAppSelector((state) => state.album);
+
   useEffect(() => {
-    dispatch(setCurrentMedia(approvedMedias[0]));
-  }, [approvedMedias, dispatch]);
+    const r = approvedMedias.find(
+      (media) => !media.price || !media.salesMethod
+    );
+    if (r) {
+      setReadyToSend(false);
+    } else {
+      setReadyToSend(true);
+    }
+  }, [approvedMedias]);
+
   return (
     <div>
       <header className="flex items-center justify-between  text-xl mb-5">
@@ -31,8 +41,11 @@ export default function ApprovedAlbum(): React.JSX.Element {
           </div>
         </Link>
       </header>
-      <div className="flex items-center justify-center gap-10 ">
-        <ShowMedia />
+      <div className="flex items-center justify-start gap-10 ">
+        <AlbumForm />
+        <div className="w-full flex justify-center">
+          <ShowMedia />
+        </div>
       </div>
       <Album />
     </div>

@@ -30,10 +30,16 @@ export default function Image({
     }, 0.00001);
     console.log("test");
   };
+  const hasPrice = !(mediaItem.price === null || mediaItem.price === undefined);
+  const hasSalesMethod = !(
+    mediaItem.salesMethod === null || mediaItem.salesMethod === undefined
+  );
   return (
     <ImageDeleteBox
       handleImageDelete={handleImageDelete}
       isCurrentImage={currentMedia?.id === mediaItem.id}
+      hasPrice={hasPrice}
+      hasSalesMethod={hasSalesMethod}
     >
       <img
         onClick={handleImageClick}

@@ -7,7 +7,7 @@ import ImageRatioItem from "./ImageRatioItem";
 
 export default function ShowMedia(): React.JSX.Element {
   // const dispatch = useAppDispatch();
-  const { currentMedia } = useAppSelector((state) => state.album);
+  const { currentMedia, inSendPage } = useAppSelector((state) => state.album);
   // let currentMediaIndex = -1;
   // medias.forEach((image, index) => {
   //   if (image.id === currentMedia?.id) {
@@ -30,7 +30,8 @@ export default function ShowMedia(): React.JSX.Element {
   let content;
   let bg = "";
   if (!currentMedia) {
-    content = <MediaDropzone />;
+    if (inSendPage) content = null;
+    else content = <MediaDropzone />;
   } else {
     // bg = "bg-gray-900";
     bg = "";
@@ -42,8 +43,8 @@ export default function ShowMedia(): React.JSX.Element {
     }
   }
   return (
-    <div>
-      <div className={` items-center rounded  justify-self-center mb-4  ${bg}`}>
+    <div className="">
+      <div className={`  rounded   mb-4  ${bg}`}>
         <div className=" w-[35rem] h-[35rem]  flex items-center justify-center">
           {content}
         </div>

@@ -12,6 +12,8 @@ export interface MediaType {
   logoSize: LogoSizeType;
   logoOffset: LogoOffsetType;
   mediaContainerPosition: DOMRect;
+  price?: number | null;
+  salesMethod?: "exclusive" | "shared" | null;
 }
 
 export interface MediaList {
@@ -426,6 +428,54 @@ export const albumSlice = createSlice({
     setInSendPage(state, action: PayloadAction<boolean>) {
       state.inSendPage = action.payload;
     },
+
+    setPrice(state, action: PayloadAction<number | null>) {
+      if (state.currentMedia) {
+        // state.currentMedia.price = action.payload;
+
+        state.approvedMedias = state.approvedMedias.map((media) => {
+          if (media.id === state.currentMedia?.id) {
+            const m = state.currentMedia;
+            m.price = action.payload;
+            return m;
+          }
+
+          return media;
+        });
+        // if (state.currentMediaList) {
+        //   state.currentMediaList = {
+        //     id: state.currentMediaList.id,
+        //     medias: state.currentMediaList?.medias.map((media) => {
+        //       if (media.id === state.currentMedia?.id)
+        //         return state.currentMedia;
+        //       return media;
+        //     }),
+        //   };
+
+        //   state.mediasList = state.mediasList.map((mediaList) => {
+        //     if (mediaList.id === state.currentMediaList?.id)
+        //       return state.currentMediaList;
+        //     return mediaList;
+        //   });
+        // }
+      }
+    },
+
+    setSalesMethod(
+      state,
+      action: PayloadAction<"exclusive" | "shared" | null | undefined>
+    ) {
+      if (state.currentMedia) {
+        state.approvedMedias = state.approvedMedias.map((media) => {
+          if (media.id === state.currentMedia?.id) {
+            const m = state.currentMedia;
+            m.salesMethod = action.payload;
+            return m;
+          }
+          return media;
+        });
+      }
+    },
   },
 });
 
@@ -440,4 +490,6 @@ export const {
   setLogoSize,
   setMediaContainerPosition,
   setInSendPage,
+  setPrice,
+  setSalesMethod,
 } = albumSlice.actions;

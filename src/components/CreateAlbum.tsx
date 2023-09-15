@@ -23,10 +23,12 @@ export default function CreateAlbum(): React.JSX.Element {
           <BsArrowLeft className="text-2xl " />
         </div>
       </header>
-      <div className="flex items-center justify-center gap-10 ">
+      <div className="flex items-center justify-start gap-10 ">
         <ChangeAspectRatioMenu />
 
-        <ShowMedia />
+        <div className="w-full flex justify-center">
+          <ShowMedia />
+        </div>
       </div>
     </div>
   );
